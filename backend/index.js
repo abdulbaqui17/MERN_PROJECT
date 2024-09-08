@@ -64,7 +64,7 @@ app.post('/IdeaForm', async (req, res) => {
   const { ideaName, ideaDescription, studentName, studentRollNo, department } = req.body;
  
   try {
-    const newIdea = IdeaForm.create({
+    const newIdea =await IdeaForm.create({
       ideaName,
       ideaDescription,
       studentName,

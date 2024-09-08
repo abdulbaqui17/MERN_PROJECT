@@ -16,8 +16,8 @@ const IdeaFormSchema=new mongoose.Schema({
         studentRollNo:String,
         department:String,   
     })
-const User=mongoose.model("IdeaInfo",IdeaFormSchema)
-const IdeaForm=mongoose.model("UserInfo",userSchema)
+const IdeaForm=mongoose.model("IdeaInfo",IdeaFormSchema)
+const User=mongoose.model("UserInfo",userSchema)
 
 module.exports={
     User,
