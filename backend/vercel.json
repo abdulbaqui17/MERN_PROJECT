@@ -12,5 +12,8 @@
         "dest": "/"
       }
     ],
-    "rewrites":[{"src":"/(.*)","dest":"/"}]
+    "rewrites":[{"src":"/(.*)","dest":"/"}],
+    "env": {
+    "MONGODB_URI": "mongodb+srv://admin:nNBGy78jvOE02SNR@cluster0.wjlozak.mongodb.net/ideaSubmission"
+  }
 }
