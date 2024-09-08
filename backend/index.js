@@ -58,23 +58,9 @@ app.post("/login-user",async (req,res)=>{
     }
 })
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'C:\Users\mohdb\OneDrive\Desktop\ideaX\backend\pdfs'); // Set the destination folder for uploaded files
-  },
-  filename: function (req, file, cb) {
-    // Set unique file names using current timestamp + original file name
-    const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1E9)}`;
-    const ext = path.extname(file.originalname);
-    xcb(null, `${uniqueSuffix}${ext}`); // Set unique file names
-  },
-});
-
-const upload=multer({storage:storage})
-
 app.post('/IdeaForm', async (req, res) => {
   const { ideaName, ideaDescription, studentName, studentRollNo, department } = req.body;
-  const pdfFile = req.file ? req.file.path : null;
+ 
   try {
     // Create a new Idea document object
     const newIdea = new Idea({
