@@ -13,7 +13,7 @@ app.use(cors({
 }));
 
 app.use(express.json())
-app.options('*', cors()); 
+
 
 const signSchema=z.object({
   fname:z.string(),
