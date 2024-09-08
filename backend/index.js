@@ -1,14 +1,11 @@
 const express=require("express");
 const app=express() 
 const cors=require("cors")
-const jwt=require("jsonwebtoken")
+
 const z=require("zod")
 const {User,IdeaForm}=require("./userDetails")
 app.use(cors())
 app.use(express.json())
-
-
-const JWT_SECRET="asdfsfjsklfjieowiour93sdjfkndewrfioefjds"
 
 const signSchema=z.object({
   fname:z.string(),
@@ -57,8 +54,7 @@ app.post("/login-user",async (req,res)=>{
       if(!user){
           return res.json({error:"user not found"})
       }
-      const token=jwt.sign({email:req.body.email},JWT_SECRET)
-          return res.json({ message: "Login successful", data:token });
+      return res.json({ message: "Login successful"});
     } catch (err) {
       console.error("Login error:", err);
       return res.status(500).json({ error: "Internal Server Error" });
