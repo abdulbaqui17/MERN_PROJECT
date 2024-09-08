@@ -1,24 +1,30 @@
 const express=require("express");
-const app=express()
-const mongoose =require("mongoose")
-const multer = require('multer'); 
-app.use(express.json())
+const app=express() 
 const cors=require("cors")
-app.use(cors())
-const bcrypt=require("bcryptjs")
-
 const jwt=require("jsonwebtoken")
+const z=require("zod")
+const {User,IdeaForm}=require("./userDetails")
+app.use(cors())
+app.use(express.json())
+
 
 const JWT_SECRET="asdfsfjsklfjieowiour93sdjfkndewrfioefjds"
 
-mongoose.connect("mongodb://localhost:27017/")
+const signSchema=z.object({
+  fname:z.string(),
+  lname:z.string(),
+  email:z.string().email(),
+  password:z.string()
+})
 
-require("./userDetails")
-
-const User=mongoose.model("UserInfo")
-const Idea=mongoose.model("IdeaInfo")
 
 app.post("/register",async function(req,res){
+    const {success}=signSchema.safeParse(req.body)
+    if(!success){
+      return res.json({
+        msg:"invalid inputs"
+      })
+    }
     const {fname,lname,email,password}=req.body
     try{
     await User.create({
@@ -37,21 +43,13 @@ app.post("/register",async function(req,res){
 })
 
 app.post("/login-user",async (req,res)=>{
-    const {email,password}=req.body
     try{
-    const user=await User.findOne({email})
-    if(!user){
-        return res.json({error:"user not found"})
-    }
-    if ( await password === user.password) {
-        const token=jwt.sign({},JWT_SECRET)
-        // Passwords match, user is authenticated
-        if(res.status(201)){
-        return res.json({ message: "Login successful", data:token });
-      }} else {
-        // Passwords do not match
-        return res.status(401).json({ error: "Invalid password" });
+      const user=await User.findOne(req.body)
+      if(!user){
+          return res.json({error:"user not found"})
       }
+      const token=jwt.sign({email:req.body.email},JWT_SECRET)
+          return res.json({ message: "Login successful", data:token });
     } catch (err) {
       console.error("Login error:", err);
       return res.status(500).json({ error: "Internal Server Error" });
@@ -62,20 +60,16 @@ app.post('/IdeaForm', async (req, res) => {
   const { ideaName, ideaDescription, studentName, studentRollNo, department } = req.body;
  
   try {
-    // Create a new Idea document object
-    const newIdea = new Idea({
+    const newIdea = IdeaForm.create({
       ideaName,
       ideaDescription,
       studentName,
       studentRollNo,
-      department,
-      pdfFile
+      department
     });
-
-    // Save the new Idea document to the database
-    await newIdea.save();
-    
-    console.log('Received Idea:', ideaName, ideaDescription, studentName, studentRollNo, department);
+    if(!newIdea){
+      return res.json({msg:"error"})
+    }
     res.status(201).json({ message: 'Idea submitted successfully' });
   } catch (error) {
     console.error('Error saving idea:', error);

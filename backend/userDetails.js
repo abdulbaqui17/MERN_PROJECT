@@ -1,29 +1,25 @@
 const mongoose=require("mongoose")
 
-const UserDetails=new mongoose.Schema(
-    {
+mongoose.connect("mongodb://localhost:27017/")
+
+const User=new mongoose.Schema({
         fname:String,
         lname:String,
         email:String,
         password:String 
-    },
-    {
-        collection:"UserInfo"
-    }
-)
+})
 
-const IdeaForm=new mongoose.Schema(
-    {
+const IdeaForm=new mongoose.Schema({
         ideaName:String,
         ideaDescription:String,
         studentName:String,
         studentRollNo:String,
-        department:String,
-        pdfFile:{type:String}
-    },
-    {
-        collection:"IdeaInfo"
-    }
-)
+        department:String,   
+    })
 mongoose.model("IdeaInfo",IdeaForm)
-mongoose.model("UserInfo",UserDetails)
+mongoose.model("UserInfo",User)
+
+module.exports={
+    User,
+    IdeaForm
+}
