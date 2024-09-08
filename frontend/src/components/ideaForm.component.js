@@ -30,7 +30,7 @@ const IdeaForm = () => {
   const handleSubmit = async (e) => {
    e.preventDefault();
     try {
-      const response = await fetch("https://mern-project-back.vercel.app///IdeaForm", {
+      const response = await fetch("https://mern-project-back.vercel.app/IdeaForm", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
