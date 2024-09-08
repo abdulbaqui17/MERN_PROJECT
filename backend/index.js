@@ -1,7 +1,7 @@
 const express=require("express");
 const app=express() 
 const cors=require("cors")
-
+require('dotenv').config();
 const z=require("zod")
 const {User,IdeaForm}=require("./userDetails")
 app.use(cors())
@@ -81,8 +81,4 @@ app.post('/IdeaForm', async (req, res) => {
   }
 });
 
-  
-
-app.listen(3000,function(req,res){
-    console.log("server has started at port 3000")
-})
+module.exports=app
