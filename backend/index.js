@@ -27,17 +27,21 @@ app.post("/register",async function(req,res){
     }
     const {fname,lname,email,password}=req.body
     try{
-    await User.create({
+    console.log("hi there")
+    const user=await User.create({
         fname,
         lname,
         email,
         password
     })
+    if(!user){
+      return res.json({msg:"user not created"})
+    }
     res.send({
         status:"ok"
     })
 }catch(error){
-    res.send({status:"error"})
+    res.send({status:"error"+error})
 }
     
 })
@@ -72,7 +76,6 @@ app.post('/IdeaForm', async (req, res) => {
     }
     res.status(201).json({ message: 'Idea submitted successfully' });
   } catch (error) {
-    console.error('Error saving idea:', error);
     res.status(500).json({ error: 'Failed to submit idea' });
   }
 });
