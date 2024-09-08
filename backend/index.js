@@ -17,6 +17,11 @@ const signSchema=z.object({
   password:z.string()
 })
 
+app.get("/",(req,res)=>{
+  res.json({
+    msg:"hello"
+  })
+})
 
 app.post("/register",async function(req,res){
     const {success}=signSchema.safeParse(req.body)
