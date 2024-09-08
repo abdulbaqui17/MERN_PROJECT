@@ -4,7 +4,9 @@ const cors=require("cors")
 require('dotenv').config();
 const z=require("zod")
 const {User,IdeaForm}=require("./userDetails")
-app.use(cors())
+app.use(cors({
+  origin: "https://mern-project-six-chi.vercel.app"
+}));
 app.use(express.json())
 
 const signSchema=z.object({

@@ -15,7 +15,7 @@ export default class SignUp extends Component {
     e.preventDefault();
     const {fname,lname,email,password}=this.state
     console.log(fname,lname,email,password)
-    fetch("http://localhost:3000/register",{
+    fetch("https://mern-project-back.vercel.app///register",{
       method:"POST",
       corssDomain:true,
       headers:{

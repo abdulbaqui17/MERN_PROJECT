@@ -13,7 +13,7 @@ export default class Login extends Component {
     e.preventDefault()
     const {email,password}=this.state
     console.log(email,password)
-    fetch("http://localhost:3000/login-user",{
+    fetch("https://mern-project-back.vercel.app///login-user",{
       method:"POST",
       corssDomain:true,
       headers:{

@@ -6,7 +6,6 @@ const IdeaForm = () => {
   const [studentName,setStudentName]=useState('');
   const [studentRollNo,setStudentRollNo]=useState('');
   const [department,setDepartment]=useState('');
-  const [pdfFile,setPdfFile]=useState(null)
 
   const handleIdeaNameChange = (e) => {
     setIdeaName(e.target.value);
@@ -28,20 +27,15 @@ const IdeaForm = () => {
     setDepartment(e.target.value)
   }
 
-  const handlePdfFileChange=(e)=>{
-    setPdfFile(e.target.files[0])
-  }
-
   const handleSubmit = async (e) => {
-    e.preventDefault();
-
+   e.preventDefault();
     try {
-      const response = await fetch("http://localhost:3000/IdeaForm", {
+      const response = await fetch("https://mern-project-back.vercel.app///IdeaForm", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body:JSON.stringify({ ideaName, ideaDescription, studentName, studentRollNo, department, pdfFile}),
+        body:JSON.stringify({ ideaName, ideaDescription, studentName, studentRollNo, department}),
       });
 
       if (!response.ok) {
@@ -58,7 +52,7 @@ const IdeaForm = () => {
       setStudentName('')
       setStudentRollNo('')
       setDepartment('')
-      setPdfFile(null)
+   
     } catch (error) {
       console.error('Error submitting idea:', error);
       // Handle error state or display error message to the user
@@ -123,15 +117,6 @@ const IdeaForm = () => {
       value={department}
       onChange={handleDepartmentChange}
     />
-  </div>
-  <div className="mb-3">
-          <label>Upload PDF:</label>
-          <input
-            type="file"
-            className="form-control"
-            accept=".pdf"
-            onChange={handlePdfFileChange}
-          />
   </div>
   <button onClick={logOut} type="submit" className="btn btn-primary">
     Submit
