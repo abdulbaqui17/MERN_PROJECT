@@ -27,7 +27,7 @@ app.post("/register",async function(req,res){
     }
     const {fname,lname,email,password}=req.body
     try{
-    console.log("hi there")
+   
     const user=await User.create({
         fname,
         lname,
