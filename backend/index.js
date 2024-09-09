@@ -8,7 +8,7 @@ const {User,IdeaForm}=require("./userDetails")
 app.use(cors({
   origin: "https://mern-project-tau-six.vercel.app/", 
   methods: ["GET", "POST", "PUT", "DELETE"], 
-  credentials: true 
+  
 }));
 app.options('*', cors()); // Enable preflight across all routes
 
