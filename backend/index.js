@@ -7,7 +7,7 @@ const {User,IdeaForm}=require("./userDetails")
 
 
 app.use(cors({
-  origin: "https://mern-project-six-chi.vercel.app", 
+  origin: "https://mern-project-tau-six.vercel.app/", 
   methods: ["GET", "POST", "PUT", "DELETE"], 
   credentials: true 
 }));
